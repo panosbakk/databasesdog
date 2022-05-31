@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title> <%= pageTitle %> </title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+</head>
+
+<body>
+    <%- include("includes/navbar.ejs")%>
+
+    <div class="container">
+        <div class="row" id="row">
+            <div class="col-md-12">
+                <div class="card" id="card-container">
+                    <div class="card-body" id="card">
+                    <% if (projects.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No Projects found!</h1>
+                    <% } else { %>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Project ID</th>
+                                        <th>Title</th>
+                                        <th>Summary</th>
+                                        <th>Budget</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Duration in Months</th>
+                                        <th>Employee ID</th>
+                                        <th>Employee Name</th>
+                                        
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% projects.forEach((project, _) => { %>
+                                        <tr>
+                                            <td><%= project.id %></td>
+                                            <td><%= project.title %></td>
+                                            <td><%= project.summary %></td>
+                                            <td><%= project.budget %></td>
+                                            <td><%= project.starting_date %></td>
+                                            <td><%= project.end_date %></td>
+                                            <td><%= project.duration %></td>
+                                            <td><%= project.employee_id %></td>
+                                            <td><%= project.emp_name %></td>
+                                            <form method="GET" action="/projects/show-researchers/<%= project.id %>">
+                                                <td> 
+                                                    <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false
+            };
+            /* In order to access variables sent to ejs file to script you must Parse them to string */
+            /* then to parse them back to JSON */
+            let messages = '<%- JSON.stringify(messages) %>';
+            messages = JSON.parse(messages);
+            messages.forEach(({
+                type,
+                value
+            }) => {
+                switch (type) {
+                    case 'error':
+                        toastr.error(value)
+                        break;
+                    case 'success':
+                        toastr.success(value)
+                        break;
+                    case 'warning':
+                        toastr.warning(value)
+                        break;
+                    default:
+                        toastr.info(value)
+                        break;
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title> <%= pageTitle %> </title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+</head>
+
+<body>
+    
+    <%- include("includes/navbar.ejs")%>
+
+    <div class="container" id="row-container">
+        <div class="row" id="row">
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View Programs</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show all programs</p>
+                        <a class="btn btn-primary" id="show-btn" href="/programs">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View Projects</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/projects">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View Projects by researcher</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show second query</p>
+                        <a class="btn btn-primary" id="show-btn" href="/secondquery">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View Researchers</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show young researchers</p>
+                        <a class="btn btn-primary" id="show-btn" href="/researchers">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View Researchers</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show researchers from last question</p>
+                        <a class="btn btn-primary" id="show-btn" href="/lastquery">Show</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View ELIDEK employees</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/employees">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View third query</h4>
+                        <p class="card-text" id="paragraph">Simple Query to CYKA<br></p>
+                        <div class="dropdown">
+                            <button>Select Scientific Field</button>
+                            <div class="dropdown-content">
+                                <a href="/thirdquery/1">Natural Science</a>
+                                <a href="/thirdquery/2">Formal Science</a>
+                                <a href="/thirdquery/3">Social Science</a>
+                                <a href="/thirdquery/4">Applied Science</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Create Program</h4>
+                        <p class="card-text" id="paragraph">Enter a new program into the database<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/program-creation-page">Create</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Create Project</h4>
+                        <p class="card-text" id="paragraph">Enter a new project into the database<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/project-creation-page">Create</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false
+            };
+            /* In order to access variables sent to ejs file to script you must Parse them to string */
+            /* then to parse them back to JSON */
+            let messages = '<%- JSON.stringify(messages) %>';
+            messages = JSON.parse(messages);
+            messages.forEach(({
+                type,
+                value
+            }) => {
+                switch (type) {
+                    case 'error':
+                        toastr.error(value)
+                        break;
+                    case 'success':
+                        toastr.success(value)
+                        break;
+                    case 'warning':
+                        toastr.warning(value)
+                        break;
+                    default:
+                        toastr.info(value)
+                        break;
+                }
+            });
+        })
+    </script>
+
+</body>
+
+</html>
