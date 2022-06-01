@@ -23,6 +23,47 @@
   margin-top: 2rem;
 }
 
+#row-3 {
+  margin-top: 2rem;
+}
+
+#row-4 {
+  margin-top: 2rem;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myTable {
+  border-collapse: collapse; /* Collapse borders */
+  width: 100%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 18px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+  text-align: left; /* Left-align text */
+  padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+  /* Add a bottom border to all table rows */
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  /* Add a grey background color to the table header and on hover */
+  background-color: #f1f1f1;
+}
+
 #row-container {
   margin: auto;
   max-width: 750px;
@@ -43,7 +84,7 @@
 #card-container {
   min-height: 250px;
   border-radius: 32px;
-  max-width: 1050px;
+  max-width: 1350px;
   margin: auto;
   background-color: rgba(18,49,126,0.23);
 }
@@ -86,6 +127,52 @@
   text-decoration: none;
   color: white;
   font-size: 16px;
+}
+
+.button_plus {
+  position: fixed;
+  width: 35px;
+  height: 35px;
+  background: rgb(255, 255, 255);
+  cursor: pointer;
+  border: 2px solid #095776;
+
+  /* Mittig */
+  top: 90%;
+  left: 95%;
+}
+
+.button_plus:after {
+  content: '';
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 4px;
+  width: 50%;
+  background: #095776;
+  top: 50%;
+  left: 50%;
+}
+
+.button_plus:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #095776;
+  height: 50%;
+  width: 4px;
+}
+
+.button_plus:hover:before,
+.button_plus:hover:after {
+  background: #fff;
+  transition: 0.2s;
+}
+
+.button_plus:hover {
+  background-color: #095776;
+  transition: 0.2s;
 }
 
 /* ERROR PAGE STYLE */

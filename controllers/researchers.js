@@ -26,35 +26,28 @@ exports.getyoungResearchers = (req, res, next) => {
     })
 }
 
-/*
-exports.getLastQuery = (req, res, next) => {
+exports.createResearcher = (req, res, next) => {
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
+    const birth_date = req.body.birth_date;
+    const sex = req.body.sex;
+
     let messages = req.flash("messages");
     if (messages.length == 0) messages = [];
-    
-    
-    pool.getConnection((err, conn) => {
-        var sqlQuery = (`SELECT DISTINCT
-        CONCAT(first_name, ' ', last_name) AS full_name,
-        COUNT(project_researcher_relationship.project_id) AS projects_number
-        FROM researchers
-        INNER JOIN project_researcher_relationship ON project_researcher_relationship.researcher_id = researchers.id
-        INNER JOIN projects ON project_researcher_relationship.project_id = projects.id
-        INNER JOIN deliverable ON deliverable.project_id = projects.id
-        WHERE deliverable.project_id != project_researcher_relationship.project_id
-        GROUP BY researchers.id
-        HAVING COUNT(project_researcher_relationship.project_id) >= 5`);
 
-        conn.promise().query(sqlQuery)
-        .then(([rows, fields]) => {
-            res.render('researchers.ejs', {
-                pageTitle: "Researchers Page",
-                researchers: rows,
-                messages: messages
-            })
+    pool.getConnection((err, conn) => {
+        var sqlQuery = `INSERT INTO researchers(first_name, last_name, birth_date, sex) VALUES(?, ?, ?, ?)`;
+
+        conn.promise().query(sqlQuery, [first_name, last_name, birth_date, sex])
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully added a new Researcher!" })
+            res.redirect('/');
         })
-        .then(() => pool.releaseConnection(conn))
-        .catch(err => console.log(err))
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, researcher could not be added." })
+            res.redirect('/');
+        })
     })
 
 }
-*/

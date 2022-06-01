@@ -15,6 +15,7 @@ const employees = require('./routes/employees');
 const lastquery = require('./routes/lastquery');
 const thirdquery = require('./routes/thirdquery');
 const secondquery = require('./routes/secondquery');
+const fifthquery = require('./routes/fifthquery');
 /* end of ROUTES and how to import routes */
 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/employees', employees);
 app.use('/lastquery', lastquery);
 app.use('/thirdquery', thirdquery);
 app.use('/secondquery', secondquery);
+app.use('/fifthquery', fifthquery);
 /* End of routes used by the project */
 
 // In case of an endpoint does not exist must return 404.html

@@ -7,7 +7,7 @@ exports.getEmployees = (req, res, next) => {
     pool.getConnection((err, conn) => {
         conn.promise().query(`SELECT emp_name, org_name AS company_name, SUM(projects.budget) AS total_finance
         FROM ELIDEK_employees
-        INNER JOIN projects ON ELIDEK_employees.project_id = projects.id
+        INNER JOIN projects ON projects.employee_id = ELIDEK_employees.id
         INNER JOIN organizations ON projects.organization_id = organizations.id
         INNER JOIN company ON company.organization_id = organizations.id
         GROUP BY organizations.id

@@ -12,42 +12,11 @@
 </head>
 
 <body>
-    <div id="editModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-      
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Edit Project</h4>
-            </div>
-            <div class="modal-body">
-                <form id="modal-form">
-                    <div style="text-align: center;">
-                        <input type="text" name="starting_date" id="starting_date"></br>
-                        <input type="text" name="duration" id="duration"></br>
-                        <input type="text" name="ELIDEK_employee" id="ELIDEK_employee"></br>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" form="modal-form" class="btn btn-success">Apply Filters</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-      
-        </div>
-    </div>
+
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
         <div class="row" id="row">
-            <a type="button" onclick="setModalFields(this)"
-                        data-toggle="modal" data-starting_date="<%= projects.starting_date %>" 
-                        data-duration="<%= projects.duration %>" data-employee_id="<%= projects.employee_id %>"
-                        data-target="#editModal">
-                        <i class="fa fa-filter"></i>
-            </a>
-            
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
@@ -55,19 +24,23 @@
                         <h1 style="margin-top: 5rem;">No Projects found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
-                            <table class="table">
+                            <input type="text" id="myInput1" placeholder="Search by start date...">
+                            <input type="text" id="myInput2" placeholder="Search by duration...">
+                            <input type="text" id="myInput3" placeholder="Search by employee name...">
+                            <button type="button" class="btn btn-success" onclick="myFunction()">Apply Filters</button>
+                            <button type="button" class="btn btn-secondary" onclick="reset()">Reset</button>
+                            <table class="table">                                
                                 <thead>
                                     <tr>
                                         <th>Project ID</th>
                                         <th>Title</th>
-                                        <th>Summary</th>
+                                        <th style="width: 250px;">Summary</th>
                                         <th>Budget</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Duration in Months</th>
                                         <th>Employee ID</th>
-                                        <th>Employee Name</th>
-                                        
+                                        <th>Employee Name</th>                                       
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -78,11 +51,15 @@
                                             <td><%= project.title %></td>
                                             <td><%= project.summary %></td>
                                             <td><%= project.budget %></td>
-                                            <td><%= project.starting_date %></td>
-                                            <td><%= project.end_date %></td>
+                                            <td><%= project.starting_date.toDateString() %></td>
+                                            <% if (project.end_date.toDateString() != 'Thu Nov 30 1899') { %>
+                                                <td><%= project.end_date.toDateString() %></td>
+                                            <% } else { %>
+                                                <td>Not done yet!</td>
+                                            <% } %>
                                             <td><%= project.duration %></td>
                                             <td><%= project.employee_id %></td>
-                                            <td><%= project.emp_name %></td>
+                                            <td><%= project.employee_name %></td>
                                             <form method="GET" action="/projects/show-researchers/<%= project.id %>">
                                                 <td> 
                                                     <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>
@@ -99,18 +76,54 @@
             </div>
         </div>
     </div>
+    
     <script>
-        function setModalFields(row) {
-            document.getElementById("starting_date").value = row.dataset.starting_date;
-            document.getElementById("duration").value = row.dataset.duration;
-            document.getElementById("employee_id").value = row.dataset.employee_id;
-
-            document.getElementById("modal-form").action = "/projects/by-category/" + row.dataset.id;
-            document.getElementById("modal-form").method = "POST";
+        function myFunction() {
+          // Declare variables
+          let input1, input2, input3, filter1, filter2, filter3, table, tr, td1, td2, td3, i, txtValue1, txtValue2, txtValue3;
+          input1 = document.getElementById("myInput1");
+          input2 = document.getElementById("myInput2");
+          input3 = document.getElementById("myInput3");
+          filter1 = input1.value.toUpperCase();
+          filter2 = input2.value.toUpperCase();
+          filter3 = input3.value.toUpperCase();
+          table = document.getElementById("card");
+          tr = table.getElementsByTagName("tr");
+        
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) {
+            td1 = tr[i].getElementsByTagName("td")[4];
+            td2 = tr[i].getElementsByTagName("td")[6];
+            td3 = tr[i].getElementsByTagName("td")[8];
+            if (td1 || td2 || td3) {
+              txtValue1 = td1.textContent || td1.innerText;
+              txtValue2 = td2.textContent || td2.innerText;
+              txtValue3 = td3.textContent || td3.innerText;
+              if ((txtValue1.toUpperCase().indexOf(filter1) > -1) || (txtValue2.toUpperCase().indexOf(filter2) > -1) || (txtValue3.toUpperCase().indexOf(filter3) > -1)) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
         }
     </script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
+    <script>
+        function reset() {
+            document.getElementById('myInput1').value = '';
+            document.getElementById('myInput2').value = '';
+            document.getElementById('myInput3').value = '';
+            let table, tr;
+            table = document.getElementById("card");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                tr[i].style.display = "";
+            }
+        }
+    </script>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

@@ -22,6 +22,10 @@
                         <h1 style="margin-top: 5rem;">No Researchers found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
+                            <input type="text" id="myInput1" placeholder="Filter by researcher ID...">
+                            <input type="text" id="myInput2" placeholder="Filter by researcher name...">
+                            <button class="btn btn-success" onclick="myFunction()">Apply Filters</button>
+                            <button type="button" class="btn btn-secondary" onclick="reset()">Reset</button>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -50,6 +54,46 @@
             </div>
         </div>
     </div>
+    <script>
+    function myFunction() {
+        // Declare variables
+        let input1, input2, filter1, filter2, table, tr, td1, td2, i, txtValue1, txtValue2;
+        input1 = document.getElementById("myInput1");
+        input2 = document.getElementById("myInput2");
+        filter1 = input1.value.toUpperCase();
+        filter2 = input2.value.toUpperCase();
+        table = document.getElementById("card");
+        tr = table.getElementsByTagName("tr");
+      
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+          td1 = tr[i].getElementsByTagName("td")[0];
+          td2 = tr[i].getElementsByTagName("td")[1];
+          if (td1 || td2) {
+            txtValue1 = td1.textContent || td1.innerText;
+            txtValue2 = td2.textContent || td2.innerText;
+            if ((txtValue1.toUpperCase().indexOf(filter1) > -1) || (txtValue2.toUpperCase().indexOf(filter2) > -1)) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+  </script>
+
+  <script>
+      function reset() {
+          document.getElementById('myInput1').value = '';
+          document.getElementById('myInput2').value = '';
+          let table, tr;
+          table = document.getElementById("card");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+              tr[i].style.display = "";
+          }
+      }
+  </script>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 

@@ -24,7 +24,11 @@ exports.getCreateProgram = (req, res, next) => {
     })
 }
 
-
+exports.getCreateResearcher = (req, res, next) => {
+    res.render('create_researcher.ejs', {
+        pageTitle: "Researcher Creation Page"
+    })
+}
 
 exports.getCreateProject = (req, res, next) => {
     res.render('create_project.ejs', {
@@ -32,8 +36,3 @@ exports.getCreateProject = (req, res, next) => {
     })
 }
 
-exports.getSearchProject = (req, res, next) => {
-    res.render('by-category.ejs', {
-        pageTitle : "Search By Category"
-    })
-}
