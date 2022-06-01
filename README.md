@@ -1,8 +1,4 @@
-# Databases-NodeJS-Demo
-
-## Demo created with other Languages and Technologies
-1. [Java](https://github.com/ChristosHadjichristofi/Databases-Java-Demo)
-2. [Python](https://github.com/DimK19/Databases-Python-Demo)
+# Databases-Project
 
 ## Dependencies
 1. [NodeJS](https://nodejs.org/en/)
@@ -26,7 +22,7 @@
 2. Import it by using ```require('custom-env').env('localhost');```
 3. ```.env.localhost``` content
 ```
-SERVER_PORT=3000
+SERVER_PORT=5000
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=dbuser
@@ -34,8 +30,6 @@ DB_PASS=dbpass
 DB=db-name
 ```
 
-## Useful Tools
-1. Database Administration Tools like [Dbeaver](https://dbeaver.io/), [Navicat](https://www.navicat.com/en/), [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
 
 ## Project Folder Hierarchy
 1. controllers - the logic of the routes (where the sql queries take place, and then the result can be either returned rendered or in other ways like JSON, csv etc.
@@ -65,8 +59,3 @@ A template engine enables you to use static template files in your application. 
 
 ![landing](https://user-images.githubusercontent.com/40044042/159064916-aac1a816-33ff-4e6f-9e63-45c31c7044a3.png)
 
-![add-student](https://user-images.githubusercontent.com/40044042/159064953-cf6b808a-062a-48c7-b140-67b141b50604.png)
-
-![students](https://user-images.githubusercontent.com/40044042/156389596-a409b129-e9cb-4946-9d9d-47f113c1d8f3.png)
-
-![grades](https://user-images.githubusercontent.com/40044042/156389628-1653aba7-c033-48d0-ac3a-df37374f0d1e.png)
