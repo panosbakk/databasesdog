@@ -12,6 +12,34 @@
 </head>
 
 <body>
+    
+    <div id="editModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Project</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    <div style="text-align: center;">
+                        <input type="text" name="id" id="id" readonly></br>
+                        <input type="text" name="title" id="title"></br>
+                        <input type="text" name="summary" id="summary"></br>
+                        <input type="text" name="budget" id="budget"></br>
+                        <input type="date" name="starting_date" id="starting_date"></br>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="modal-form" class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      
+        </div>
+    </div>
 
     <%- include("includes/navbar.ejs")%>
 
@@ -65,6 +93,20 @@
                                                     <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>
                                                 </td>
                                             </form>
+                                            <td>
+                                                <a type="button" onclick="setModalFields(this)"
+                                                    data-toggle="modal" data-id="<%= project.id %>" 
+                                                    data-title="<%= project.title %>" data-summary="<%= project.summary %>"
+                                                    data-budget="<%= project.budget %>" data-starting_date="<%= project.starting_date %>"
+                                                    data-target="#editModal">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <form method="POST" action="/projects/delete/<%= project.id %>">
+                                                <td> 
+                                                    <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </form>
                                         </tr>
                                     <% }) %>
                                 </tbody>
@@ -78,6 +120,16 @@
     </div>
     
     <script>
+        function setModalFields(row) {
+            document.getElementById("id").value = row.dataset.id;
+            document.getElementById("title").value = row.dataset.title;
+            document.getElementById("summary").value = row.dataset.summary;
+            document.getElementById("budget").value = row.dataset.budget;
+            document.getElementById("starting_date").value = row.dataset.starting_date;
+
+            document.getElementById("modal-form").action = "/projects/update/" + row.dataset.id;
+            document.getElementById("modal-form").method = "POST";
+        }
         function myFunction() {
           // Declare variables
           let input1, input2, input3, filter1, filter2, filter3, table, tr, td1, td2, td3, i, txtValue1, txtValue2, txtValue3;
@@ -123,9 +175,12 @@
         }
     </script>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script>
         $(document).ready(function() {

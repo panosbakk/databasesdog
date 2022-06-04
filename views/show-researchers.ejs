@@ -11,8 +11,39 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
-    <div class="button_plus"></div>
+<body id="body">
+
+    <div id="editModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Researcher</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    <div style="text-align: center;">
+                        <input type="text" name="project_id" id="project_id" readonly></br>
+                        <input type="text" name="researcher_id" id="researcher_id"></br>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="modal-form" class="btn btn-success">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+    <div class="button_plus" onclick="setModalFields()"
+    data-toggle="modal"
+    data-target="#editModal">
+
+    </div>
+    
     <%- include("includes/navbar.ejs")%>
     
     <div class="container">
@@ -25,7 +56,7 @@
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead id="thead">
                                     <tr>
                                         <th>researcher ID</th>
                                         <th>Researcher Full Name</th>
@@ -34,7 +65,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     <% researchers.forEach((researcher, _) => { %>
                                         <tr>
                                             <td><%= researcher.id %></td>
@@ -52,8 +83,17 @@
             </div>
         </div>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
+    <script>
+        function setModalFields() {
+            document.getElementById("modal-form").action = "/show-researchers/";
+            document.getElementById("modal-form").method = "POST";
+        }
+    </script>
+    
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

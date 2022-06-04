@@ -116,9 +116,9 @@ DROP TABLE IF EXISTS assessment;
 CREATE TABLE assessment
 (
     project_id int,
-    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
     researcher_id int,
-    FOREIGN KEY (researcher_id) REFERENCES researchers(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (researcher_id) REFERENCES researchers(id) ON DELETE RESTRICT,
 	assessment_date date not null,
     grade tinyint not null,
     CONSTRAINT grade_bigger_than_zero CHECK (grade > 0),
@@ -142,7 +142,7 @@ CREATE TABLE project_scientific_field
 	field_id int,
     FOREIGN KEY (field_id) REFERENCES scientific_fields(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     project_id int,
-    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
 );
 
 DELIMITER $$
@@ -181,9 +181,9 @@ DROP TABLE IF EXISTS project_researcher_relationship;
 CREATE TABLE project_researcher_relationship
 (
 	researcher_id int,
-    FOREIGN KEY (researcher_id) REFERENCES researchers(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (researcher_id) REFERENCES researchers(id) ON DELETE CASCADE,
     project_id int,
-    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
 );
 
 DELIMITER $$
@@ -203,28 +203,20 @@ DELIMITER ;
 
 ALTER TABLE deliverable
 ADD project_id int,
-ADD FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ADD FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
 ALTER TABLE researchers
 ADD organization_id int,
-ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-ADD project_id int,
-ADD FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+
 
 ALTER TABLE projects
 ADD employee_id int,
 ADD FOREIGN KEY (employee_id) REFERENCES ELIDEK_employees(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 ADD program_id int,
 ADD FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-ADD researcher_id int,
-ADD FOREIGN KEY (researcher_id) REFERENCES researchers(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 ADD organization_id int,
 ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-ADD field_id int,
-ADD FOREIGN KEY (field_id) REFERENCES scientific_fields(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 ADD scientific_director_id int,
 ADD FOREIGN KEY (scientific_director_id) REFERENCES researchers(id) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE ELIDEK_employees
-ADD project_id int,
-ADD FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE;

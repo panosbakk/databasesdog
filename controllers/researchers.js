@@ -31,14 +31,14 @@ exports.createResearcher = (req, res, next) => {
     const last_name = req.body.last_name;
     const birth_date = req.body.birth_date;
     const sex = req.body.sex;
-
+    const organization_id = req.body.organization_id;
     let messages = req.flash("messages");
     if (messages.length == 0) messages = [];
 
     pool.getConnection((err, conn) => {
-        var sqlQuery = `INSERT INTO researchers(first_name, last_name, birth_date, sex) VALUES(?, ?, ?, ?)`;
+        var sqlQuery = `INSERT INTO researchers(first_name, last_name, birth_date, sex, organization_id) VALUES(?, ?, ?, ?, ?)`;
 
-        conn.promise().query(sqlQuery, [first_name, last_name, birth_date, sex])
+        conn.promise().query(sqlQuery, [first_name, last_name, birth_date, sex, organization_id])
         .then(() => {
             pool.releaseConnection(conn);
             req.flash('messages', { type: 'success', value: "Successfully added a new Researcher!" })

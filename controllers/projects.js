@@ -52,6 +52,8 @@ exports.getSelectResearcherProject = (req, res, next) => {
 
 }
 
+
+
 exports.postProject = (req, res, next) => {
 
     /* get necessary data sent */
@@ -81,6 +83,28 @@ exports.postProject = (req, res, next) => {
     })
 }
 
+exports.postAddResearcher = (req, res, next) => {
+
+    /* get necessary data sent */
+    const project_id = req.body.project_id;
+    const researcher_id = req.body.researcher_id;
+
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = `INSERT INTO project_researcher_relationship(project_id, researcher_id) VALUES(?, ?)`;
+
+        conn.promise().query(sqlQuery, [project_id, researcher_id])
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully added researcher!" })
+            res.redirect('/show-researchers/');
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Researcher could not be added." })
+            res.redirect('/show-researchers/');
+        })
+    })
+}
 
 exports.postUpdateProject = (req, res, next) => {
 
@@ -89,12 +113,12 @@ exports.postUpdateProject = (req, res, next) => {
     const title = req.body.title;
     const summary = req.body.summary;
     const budget = req.body.budget;
-
+    const starting_date = req.body.starting_date;
     /* create the connection, execute query, flash respective message and redirect to grades route */
     pool.getConnection((err, conn) => {
-        var sqlQuery = `UPDATE projects SET title = ?, summary = ?, budget = ? WHERE id = ${id}`;
+        var sqlQuery = `UPDATE projects SET title = ?, summary = ?, budget = ?, starting_date = ? WHERE id = ${id}`;
 
-        conn.promise().query(sqlQuery, [title, summary, budget])
+        conn.promise().query(sqlQuery, [title, summary, budget, starting_date])
         .then(() => {
             pool.releaseConnection(conn);
             req.flash('messages', { type: 'success', value: "Successfully updated project!" })
@@ -107,3 +131,23 @@ exports.postUpdateProject = (req, res, next) => {
     })
 }
 
+exports.postDeleteProject = (req, res, next) => {
+    /* get id from params */
+    const id = req.params.id;
+    
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = (`DELETE FROM projects WHERE id = ${id}`);
+        conn.promise().query(sqlQuery)
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully deleted project!" })
+            res.redirect('/projects');
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Project could not be deleted." })
+            res.redirect('/projects');
+        })
+    })
+
+}
