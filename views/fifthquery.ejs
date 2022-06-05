@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
+<body id="body">
+
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
@@ -24,17 +25,29 @@
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead id="thead">
                                     <tr>
-                                        <th>Scientific Fields Pair</th>
-                                        <th>Number of occurences</th>
+                                        <th>Top scientific field pairs</th>
+                                        <th>Occurences</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     <% fields.forEach((field, _) => { %>
                                         <tr>
-                                            <td><%= field.field_pair %></td>
+                                            <% if (field.field_pair == '1 2') { %>
+                                                <td>Natural & Formal sciences</td>
+                                            <% } else if (field.field_pair == '1 3') { %>
+                                                <td>Natural & Social sciences</td>
+                                            <% } else if (field.field_pair == '1 4') { %>
+                                                <td>Natural & Applied sciences</td>
+                                            <% } else if (field.field_pair == '2 3') { %>
+                                                <td>Formal & Social sciences</td>
+                                            <% } else if (field.field_pair == '2 4') { %>
+                                                <td>Formal & Applied sciences</td>
+                                            <% } else if (field.field_pair == '3 4') { %>
+                                                <td>Social & Applied sciences</td>
+                                            <% } %>
                                             <td><%= field.sum %></td>
                                         </tr>
                                     <% }) %>
@@ -48,7 +61,6 @@
         </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

@@ -23,8 +23,10 @@
             </div>
             <div class="modal-body">
                 <form id="modal-form">
-                    <div style="text-align: center;">
-                        <input type="text" name="project_id" id="project_id" readonly></br>
+                    <div>
+                        <label for="project_id">Project ID</label><br>
+                        <input type="text" name="project_id" id="project_id"></br>
+                        <label for="researcher_id">Researcher ID</label><br>
                         <input type="text" name="researcher_id" id="researcher_id"></br>
                     </div>
                 </form>
@@ -72,6 +74,11 @@
                                             <td><%= researcher.full_name %></td>
                                             <td><%= researcher.age %></td>
                                             <td><%= researcher.sex %></td>
+                                            <form method="POST" action="/projects/delete-researcher/<%= researcher.id %>">
+                                                <td> 
+                                                    <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </form>
                                         </tr>
                                     <% }) %>
                                 </tbody>
@@ -86,7 +93,10 @@
 
     <script>
         function setModalFields() {
-            document.getElementById("modal-form").action = "/show-researchers/";
+            document.getElementById("project_id").value = 1;
+            document.getElementById("researcher_id").value = 11;
+
+            document.getElementById("modal-form").action = "/projects/add-researcher";
             document.getElementById("modal-form").method = "POST";
         }
     </script>

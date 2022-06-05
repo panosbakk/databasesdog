@@ -1,5 +1,5 @@
 CREATE VIEW project_info AS
-SELECT DISTINCT
+SELECT
 projects.id, title, summary, budget, starting_date, end_date,
 TIMESTAMPDIFF(month, starting_date, end_date) AS duration,
 employee_id, emp_name AS employee_name

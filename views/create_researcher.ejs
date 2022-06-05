@@ -10,31 +10,32 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
-<body>
+<body id="body">
     
     <%- include("includes/navbar.ejs")%>
+    
     <div class="container">
         <div class="row" id="row">
             <div class="col-md-12">
                 <form class="form-horizontal" name="researcher-form" action="/researchers/create" method="POST">
                     <div class="form-group col-sm-3 mb-3">
-                        <label for="first_name">First Name</label>
+                        <label for="first_name" id="tbody">First Name *</label>
                         <input type="text" class="form-control" name="first_name" placeholder="Enter first name">
                     </div>
                     <div class="form-group col-sm-3 mb-3">
-                        <label for="last_name">Last Name</label>
+                        <label for="last_name" id="tbody">Last Name *</label>
                         <input type="text" class="form-control" name="last_name" placeholder="Enter last name">
                     </div>
                     <div class="form-group col-sm-3 mb-3">
-                        <label for="birth_date">Birth Date</label>
-                        <input type="text" class="form-control" name="birth_date" placeholder="Enter birth date e.g. 1969-10-13">
+                        <label for="birth_date" id="tbody">Birth Date *</label>
+                        <input type="date" class="form-control" name="birth_date">
                     </div>
                     <div class="form-group col-sm-3 mb-3">
-                        <label for="organization_id">Organization ID</label>
-                        <input type="text" class="form-control" name="organization_id" placeholder="Enter organization ID e.g. 1">
+                        <label for="organization_id" id="tbody">Organization ID *</label>
+                        <input type="text" class="form-control" name="organization_id" placeholder="Enter the Organization ID">
                     </div>
                     <div class="form-group col-sm-3 mb-3">
-                        <label for="sex">Sex</label>
+                        <label for="sex" id="tbody">Sex *</label>
                         <br>
                             <select name="sex" id="sex">
                                     <option value="Male">Male</option>
@@ -42,10 +43,11 @@
                                     <option value="Other">Other</option>
                             </select>
                     </div>
-                </div>
-            </div>
-                    <button type="submit" class="btn btn-primary btn-submit-custom">Submit</button>
+                    <div id="tbody">* required</div>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-submit-custom" id="submit">Submit</button>
                 </form>
+            </div>
         </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

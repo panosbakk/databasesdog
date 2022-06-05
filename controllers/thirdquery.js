@@ -15,7 +15,7 @@ exports.getProjectsScFi = (req, res, next) => {
         INNER JOIN researchers ON project_researcher_relationship.researcher_id = researchers.id
         INNER JOIN project_scientific_field ON project_scientific_field.project_id = projects.id
         INNER JOIN scientific_fields ON project_scientific_field.field_id = scientific_fields.id
-        WHERE scientific_fields.id = ${id} AND projects.end_date = 0000-00-00`)
+        WHERE scientific_fields.id = ${id} AND projects.end_date IS NULL`)
         .then(([rows, fields]) => {
             res.render('thirdquery.ejs', {
                 pageTitle: "Researchers Page",

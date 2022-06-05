@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -11,7 +10,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
+<body id="body">
     
     <%- include("includes/navbar.ejs")%>
 
@@ -20,27 +19,27 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View Programs</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show all programs</p>
-                        <a class="btn btn-primary" id="show-btn" href="/programs">Show</a>
+                        <h4 class="card-title">Create Program</h4>
+                        <p class="card-text" id="paragraph">Enter a new program into the database<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/program-creation-page">Create</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View Projects</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/projects">Show</a>
+                        <h4 class="card-title">Create Project</h4>
+                        <p class="card-text" id="paragraph">Enter a new project into the database<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/project-creation-page">Create</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View Projects by researcher</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show second query</p>
-                        <a class="btn btn-primary" id="show-btn" href="/secondquery">Show</a>
+                        <h4 class="card-title">Create Researcher</h4>
+                        <p class="card-text" id="paragraph">Enter a new researcher into the database<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/researcher-creation-page">Create</a>
                     </div>
                 </div>
             </div>
@@ -83,7 +82,7 @@
                         <h4 class="card-title">View third query</h4>
                         <p class="card-text" id="paragraph">Simple Query to CYKA<br></p>
                         <div class="dropdown">
-                            <button>Select Scientific Field</button>
+                            <button class="dropbtn">Select Scientific Field</button>
                             <div class="dropdown-content">
                                 <a href="/thirdquery/1">Natural Science</a>
                                 <a href="/thirdquery/2">Formal Science</a>
@@ -97,22 +96,23 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">Create Program</h4>
-                        <p class="card-text" id="paragraph">Enter a new program into the database<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/program-creation-page">Create</a>
+                        <h4 class="card-title">View Programs</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show all programs</p>
+                        <a class="btn btn-primary" id="show-btn" href="/programs">Show</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">Create Project</h4>
-                        <p class="card-text" id="paragraph">Enter a new project into the database<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/project-creation-page">Create</a>
+                        <h4 class="card-title">View Projects</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/projects">Show</a>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row" id="row-4">
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
@@ -126,9 +126,9 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">Create Researcher</h4>
-                        <p class="card-text" id="paragraph">Enter a new researcher into the database<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/researcher-creation-page">Create</a>
+                        <h4 class="card-title">View Projects by researcher</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show second query</p>
+                        <a class="btn btn-primary" id="show-btn" href="/secondquery">Show</a>
                     </div>
                 </div>
             </div>

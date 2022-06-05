@@ -1,8 +1,4 @@
-# Databases-NodeJS-Demo
-
-## Demo created with other Languages and Technologies
-1. [Java](https://github.com/ChristosHadjichristofi/Databases-Java-Demo)
-2. [Python](https://github.com/DimK19/Databases-Python-Demo)
+# Databases-NodeJS
 
 ## Dependencies
 1. [NodeJS](https://nodejs.org/en/)
@@ -26,30 +22,13 @@
 2. Import it by using ```require('custom-env').env('localhost');```
 3. ```.env.localhost``` content
 ```
-SERVER_PORT=3000
+SERVER_PORT=5000
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=dbuser
 DB_PASS=dbpass
 DB=db-name
 ```
-
-## Useful Tools
-1. Database Administration Tools like [Dbeaver](https://dbeaver.io/), [Navicat](https://www.navicat.com/en/), [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
-
-## Project Folder Hierarchy
-1. controllers - the logic of the routes (where the sql queries take place, and then the result can be either returned rendered or in other ways like JSON, csv etc.
-2. public - all publicly accessible files that a user of the system can have access (usually css, icons, static pages etc)
-3. routes - the endpoints of the application. Endpoints are simply a unique URL where a specific task is completed. For example http://localhost:3000/signin is used for signing in an application, http://localhost:3000/user/5 is to get the user with the id eq to 5 etc
-4. utils - can contain any utilities you want for your project, for example the connection of the database, so as you can just import and use it when needed (mostly in controllers)
-5.  views - the pages of the project (More on what the templating engine does)
-
-## What is a Templating Engine
-A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.
-
-### Alternatives of EJS
-1. [Handlebars](https://handlebarsjs.com/)
-2. [Pug](https://pugjs.org/api/getting-started.html)
 
 ## NodeJS General Information
 1. To initialize a new NodeJS Project, create the project folder, open a terminal and use the command ```npm init```
@@ -62,11 +41,3 @@ A template engine enables you to use static template files in your application. 
 ## Create Dummy Data
 1. Using the [faker](https://www.npmjs.com/package/faker/v/5.5.3) package dummy data can be created. It can create all kind of data (More on the documentation of the package)
 2. To run the ```creator.js``` script which is located inside ```dummyDataCreator``` folder, run ```npm run create-data```, which is a custom script (custom scripts can be declared in ```package.json``` and can be run with ```npm run <script-name>```)
-
-![landing](https://user-images.githubusercontent.com/40044042/159064916-aac1a816-33ff-4e6f-9e63-45c31c7044a3.png)
-
-![add-student](https://user-images.githubusercontent.com/40044042/159064953-cf6b808a-062a-48c7-b140-67b141b50604.png)
-
-![students](https://user-images.githubusercontent.com/40044042/156389596-a409b129-e9cb-4946-9d9d-47f113c1d8f3.png)
-
-![grades](https://user-images.githubusercontent.com/40044042/156389628-1653aba7-c033-48d0-ac3a-df37374f0d1e.png)

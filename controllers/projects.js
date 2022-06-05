@@ -10,7 +10,7 @@ exports.getProjects = (req, res, next) => {
     /* create the connection, execute query, render data */
     pool.getConnection((err, conn) => {
         
-        conn.promise().query('SELECT * FROM project_info')
+        conn.promise().query('SELECT * FROM project_info ORDER BY id ASC')
         .then(([rows, fields]) => {
             res.render('projects.ejs', {
                 pageTitle: "Projects Page",
@@ -52,8 +52,6 @@ exports.getSelectResearcherProject = (req, res, next) => {
 
 }
 
-
-
 exports.postProject = (req, res, next) => {
 
     /* get necessary data sent */
@@ -61,7 +59,8 @@ exports.postProject = (req, res, next) => {
     const summary = req.body.summary;
     const budget = req.body.budget;
     const starting_date = req.body.starting_date;
-    const end_date = req.body.end_date;
+    let end_date = req.body.end_date;
+    if (end_date = '0000-00-00') end_date = null;
     const employee_id = req.body.employee_id;
 
     let messages = req.flash("messages");
@@ -89,6 +88,8 @@ exports.postAddResearcher = (req, res, next) => {
     const project_id = req.body.project_id;
     const researcher_id = req.body.researcher_id;
 
+    let messages = req.flash("messages");
+    if (messages.length == 0) messages = [];
     /* create the connection, execute query, flash respective message and redirect to grades route */
     pool.getConnection((err, conn) => {
         var sqlQuery = `INSERT INTO project_researcher_relationship(project_id, researcher_id) VALUES(?, ?)`;
@@ -96,14 +97,35 @@ exports.postAddResearcher = (req, res, next) => {
         conn.promise().query(sqlQuery, [project_id, researcher_id])
         .then(() => {
             pool.releaseConnection(conn);
-            req.flash('messages', { type: 'success', value: "Successfully added researcher!" })
-            res.redirect('/show-researchers/');
+            req.flash('messages', { type: 'success', value: "Successfully added a new Researcher!" })
+            res.redirect('/projects/show-researchers/' + project_id);
         })
         .catch(err => {
             req.flash('messages', { type: 'error', value: "Something went wrong, Researcher could not be added." })
-            res.redirect('/show-researchers/');
+            res.redirect('/projects/show-researchers/' + project_id);
         })
     })
+}
+
+exports.postDeleteResearcher = (req, res, next) => {
+    /* get id from params */
+    const researcher_id = req.params.researcher_id;
+    const project_id = req.body.project_id;
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = (`DELETE FROM project_researcher_relationship WHERE researcher_id = ${researcher_id}`);
+        conn.promise().query(sqlQuery)
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully deleted researcher!" })
+            res.redirect('/projects/show-researchers/' + project_id);
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Researcher could not be deleted." })
+            res.redirect('/projects/show-researchers/' + project_id);
+        })
+    })
+
 }
 
 exports.postUpdateProject = (req, res, next) => {
@@ -131,6 +153,7 @@ exports.postUpdateProject = (req, res, next) => {
     })
 }
 
+
 exports.postDeleteProject = (req, res, next) => {
     /* get id from params */
     const id = req.params.id;
@@ -151,3 +174,4 @@ exports.postDeleteProject = (req, res, next) => {
     })
 
 }
+

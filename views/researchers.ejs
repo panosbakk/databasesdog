@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
+<body id="body">
+
     <%- include("includes/navbar.ejs")%>
+
     <div class="container">
         <div class="row" id="row">
             <div class="col-md-12">
@@ -23,17 +25,18 @@
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead id="thead">
                                     <tr>
-                                        <th>Researcher Full Name</th>
+                                        <th>Full Name</th>
+                                        <th>Age</th>
                                         <th>Projects Count</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     <% researchers.forEach((researcher, _) => { %>
                                         <tr>
                                             <td><%= researcher.full_name %></td>
+                                            <td><%= researcher.age %></td>
                                             <td><%= researcher.projects_number %></td>
                                         </tr>
                                     <% }) %>
@@ -48,7 +51,6 @@
     </div>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

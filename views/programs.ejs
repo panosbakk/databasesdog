@@ -11,31 +11,32 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
+<body id="body">
     
     <div id="editModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-      
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Edit Program</h4>
+        <div class="modal-dialog">     
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Edit Program</b></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modal-form">
+                        <div>
+                            <label for="id"><b>Program ID</b></label><br>
+                            <input type="text" name="id" id="id" readonly></br>
+                            <label for="id"><b>Program Name</b></label><br>
+                            <input type="text" name="prog_name" id="prog_name"></br>
+                            <label for="id"><b>Program Executive</b></label><br>
+                            <input type="text" name="prog_address" id="prog_address"></br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="modal-form" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <form id="modal-form">
-                    <div style="text-align: center;">
-                        <input type="text" name="id" id="id" readonly></br>
-                        <input type="text" name="prog_name" id="prog_name"></br>
-                        <input type="text" name="prog_address" id="prog_address"></br>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" form="modal-form" class="btn btn-success">Update</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-      
         </div>
     </div>
 
@@ -51,7 +52,7 @@
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead id="thead">
                                     <tr>
                                         <th>Program ID</th>
                                         <th>Name</th>
@@ -59,7 +60,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     <% programs.forEach((program, _) => { %>
                                         <tr>
                                             <td><%= program.id %></td>
@@ -100,10 +101,10 @@
             document.getElementById("modal-form").method = "POST";
         }
     </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

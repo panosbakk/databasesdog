@@ -2,7 +2,7 @@ let faker = require('faker');
 var fs = require('fs');
 
 /* PROJECTS */
-DUMMY_PROJECTS_DATA_NUMBER = 50;
+DUMMY_PROJECTS_DATA_NUMBER = 100;
 TABLE_NAME = "projects";
 TABLE_COLUMNS = ["title", "summary", "budget", "starting_date", "end_date"];
 let content = "";
@@ -14,12 +14,14 @@ for (i = 0; i < DUMMY_PROJECTS_DATA_NUMBER; i++) {
     if (i % 2 == 0) {
       starting_date = faker.date.past(2, '2021-05-31T00:00:00.000Z').toISOString();
       end_date = faker.date.future(1, '2022-05-31T00:00:00.000Z').toISOString();
+      content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
+      title + '","' + summary + '","' + budget + '","' + starting_date + '","' + end_date + '");\n';
     } else {
       starting_date = faker.date.past(1, '2022-05-31T00:00:00.000Z').toISOString();
       end_date = null;
+      content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
+      title + '","' + summary + '","' + budget + '","' + starting_date + '",' + end_date + ');\n';
     }
-    content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
-    title + '","' + summary + '","' + budget + '","' + starting_date + '","' + end_date + '");\n';
 }
 
 fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
@@ -28,7 +30,7 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* PROGRAMS */
-DUMMY_PROGRAMS_DATA_NUMBER = 30;
+DUMMY_PROGRAMS_DATA_NUMBER = 50;
 TABLE_NAME = "programs";
 TABLE_COLUMNS = ["prog_name", "prog_address"];
 content = "";
@@ -46,7 +48,7 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* ORGANIZATIONS */
-DUMMY_ORGANIZATIONS_DATA_NUMBER = 30;
+DUMMY_ORGANIZATIONS_DATA_NUMBER = 50;
 TABLE_NAME = "organizations";
 TABLE_COLUMNS = ["org_name", "abbreviation", "street", "street_number", "postal_code", "city"];
 content = "";
@@ -78,7 +80,7 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* RESEARCHERS */
-DUMMY_RESEARCHERS_DATA_NUMBER = 100;
+DUMMY_RESEARCHERS_DATA_NUMBER = 200;
 TABLE_NAME = "researchers";
 TABLE_COLUMNS = ["first_name", "last_name", "sex", "birth_date"];
 content = "";
@@ -153,7 +155,7 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* ASSESSMENT */
-DUMMY_PROJECTS_DATA_NUMBER = 50;
+DUMMY_PROJECTS_DATA_NUMBER = 100;
 TABLE_NAME = "assessment";
 TABLE_COLUMNS = ["project_id", "researcher_id", "assessment_date", "grade"];
 content = "";
@@ -173,7 +175,7 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* PROJECT-FIELDS */
-DUMMY_PROJECTS_DATA_NUMBER = 50;
+DUMMY_PROJECTS_DATA_NUMBER = 100;
 TABLE_NAME = "project_scientific_field";
 TABLE_COLUMNS = ["project_id", "field_id"];
 content = "";
@@ -194,14 +196,14 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* EMPLOYEE RELATIONSHIP */
-DUMMY_RESEARCHERS_DATA_NUMBER = 100;
+DUMMY_RESEARCHERS_DATA_NUMBER = 200;
 TABLE_NAME = "employee_relationship";
 TABLE_COLUMNS = ["researcher_id", "organization_id", "hire_date"];
 content = "";
 
 for (i = 0; i < DUMMY_RESEARCHERS_DATA_NUMBER; i++) {
   researcher_id = i + 1;
-  organization_id = i % 30 + 1;
+  organization_id = i % DUMMY_ORGANIZATIONS_DATA_NUMBER + 1;
   hire_date = faker.date.past(3, '2018-05-18T00:00:00.000Z').toISOString();
   content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
   researcher_id + '","' + organization_id + '","' + hire_date + '");\n';
@@ -213,14 +215,14 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* PROJECT-RESEARCHER RELATIONSHIP */
-DUMMY_RESEARCHERS_DATA_NUMBER = 100;
+DUMMY_RESEARCHERS_DATA_NUMBER = 200;
 TABLE_NAME = "project_researcher_relationship";
 TABLE_COLUMNS = ["researcher_id", "project_id"];
 content = "";
 
 for (i = 0; i < DUMMY_RESEARCHERS_DATA_NUMBER; i++) {
   researcher_id = i + 1;
-  project_id = i % 30 + 1;
+  project_id = i % DUMMY_PROJECTS_DATA_NUMBER + 1;
   hire_date = faker.date.past(4, '2021-05-18T00:00:00.000Z').toISOString();
   content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
   researcher_id + '","' + project_id + '");\n';
@@ -233,17 +235,20 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 
 
 /* UPDATES */
-DUMMY_PROJECTS_DATA_NUMBER = 50;
+DUMMY_PROJECTS_DATA_NUMBER = 100;
 TABLE_NAME = "projects";
-TABLE_COLUMNS = ["employee_id", "organization_id"];
+TABLE_COLUMNS = ["employee_id", "organization_id", "program_id"];
 content = "";
 
 for (i = 0; i < DUMMY_PROJECTS_DATA_NUMBER; i++) {
   project_id = i + 1;
+  program_id = i % DUMMY_PROGRAMS_DATA_NUMBER + 1;
   employee_id = i % DUMMY_EMPLOYEES_DATA_NUMBER + 1;
-  organization_id = i % 30 + 1;
-  content += "UPDATE projects SET employee_id = " +
-  employee_id + " , organization_id = " + organization_id + " WHERE id = " + project_id + ';\n';
+  organization_id = i % DUMMY_ORGANIZATIONS_DATA_NUMBER + 1;
+  scientific_director_id = i + 1;
+  content += "UPDATE " + TABLE_NAME + " SET employee_id = " + employee_id +
+  " , organization_id = " + organization_id + " , program_id = " + program_id +
+  " , scientific_director_id = " + scientific_director_id + " WHERE id = " + project_id + ';\n';
 }
 
 fs.writeFile('dummy_data_updates.txt', content, (err) => {

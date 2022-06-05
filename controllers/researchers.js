@@ -7,11 +7,12 @@ exports.getyoungResearchers = (req, res, next) => {
     pool.getConnection((err, conn) => {
         conn.promise().query(`SELECT DISTINCT
         CONCAT(first_name, ' ', last_name) AS full_name,
+        TIMESTAMPDIFF(year, researchers.birth_date, CURRENT_DATE()) as age,
         COUNT(project_researcher_relationship.project_id) AS projects_number
         FROM researchers
         INNER JOIN project_researcher_relationship ON project_researcher_relationship.researcher_id = researchers.id
         INNER JOIN projects ON project_researcher_relationship.project_id = projects.id
-        WHERE TIMESTAMPDIFF(year, researchers.birth_date, CURRENT_DATE()) < 40
+        WHERE TIMESTAMPDIFF(year, researchers.birth_date, CURRENT_DATE()) < 40 AND projects.end_date IS NULL
         GROUP BY researchers.id
         ORDER BY projects_number`)
         .then(([rows, fields]) => {
@@ -30,24 +31,26 @@ exports.createResearcher = (req, res, next) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const birth_date = req.body.birth_date;
-    const sex = req.body.sex;
     const organization_id = req.body.organization_id;
+    const sex = req.body.sex;
+
     let messages = req.flash("messages");
     if (messages.length == 0) messages = [];
 
     pool.getConnection((err, conn) => {
-        var sqlQuery = `INSERT INTO researchers(first_name, last_name, birth_date, sex, organization_id) VALUES(?, ?, ?, ?, ?)`;
+        var sqlQuery = `INSERT INTO researchers(first_name, last_name, birth_date, organization_id, sex) VALUES(?, ?, ?, ?, ?)`;
 
-        conn.promise().query(sqlQuery, [first_name, last_name, birth_date, sex, organization_id])
+        conn.promise().query(sqlQuery, [first_name, last_name, birth_date, organization_id, sex])
         .then(() => {
             pool.releaseConnection(conn);
             req.flash('messages', { type: 'success', value: "Successfully added a new Researcher!" })
             res.redirect('/');
         })
         .catch(err => {
-            req.flash('messages', { type: 'error', value: "Something went wrong, researcher could not be added." })
+            req.flash('messages', { type: 'error', value: "Something went wrong, Researcher could not be added." })
             res.redirect('/');
         })
     })
 
 }
+

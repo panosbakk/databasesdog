@@ -6,11 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "create-data": "node dummyDataCreator/creator.js"
+    "create-data": "cd dummyDataCreator && node creator.js"
   },
   "license": "ISC",
   "devDependencies": {
-    "@types/faker": "^6.6.9",
     "nodemon": "^2.0.16"
   },
   "dependencies": {
@@ -22,7 +21,6 @@
     "express-session": "^1.17.3",
     "faker": "^5.5.3",
     "fs": "^0.0.1-security",
-    "mysql2": "^2.3.3",
-    "path": "^0.12.7"
+    "mysql2": "^2.3.3"
   }
 }

@@ -12,7 +12,7 @@ exports.getSecQuery = (req, res, next) => {
         
         conn.promise().query(`SELECT * from projects_by_researcher`)
         .then(([rows, fields]) => {
-            res.render('second.ejs', {
+            res.render('secondquery.ejs', {
                 pageTitle: "Researchers Page",
                 researchers: rows,
                 messages: messages
